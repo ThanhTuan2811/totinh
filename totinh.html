@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hẹn Hò Với Anh</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b6b, palevioletred);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            gap: clamp(15px, 3vw, 25px); /* Responsive gap */
+            z-index: 10;
+        }
+
+        button {
+            font-size: clamp(18px, 4vw, 24px); /* Responsive font-size */
+            border: none;
+            border-radius: 15px;
+            width: clamp(120px, 20vw, 180px); /* Responsive width */
+            padding: clamp(8px, 2vw, 12px); /* Responsive padding */
+            height: clamp(40px, 8vw, 60px); /* Responsive height */
+            cursor: pointer;
+            position: relative;
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #dong-y {
+            background-color: #28a745;
+            color: white;
+        }
+
+        #tu-choi {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        #heartFull {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('./anh-dong-trai-tim_121245486.gif') center/cover no-repeat;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #loveButton {
+            display: none;
+            font-size: clamp(24px, 5vw, 36px); /* Responsive font-size */
+            padding: clamp(15px, 3vw, 20px) clamp(20px, 4vw, 40px); /* Responsive padding */
+            background: linear-gradient(45deg, #ff3366, #ff6699);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slideUp 1.2s ease-out forwards, pulse 1.5s infinite;
+            z-index: 1001;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            0% { bottom: -100px; opacity: 0; transform: translateX(-50%) scale(0.8); }
+            100% { bottom: 50%; opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        h1 {
+            font-size: clamp(24px, 6vw, 36px); /* Responsive font-size */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: clamp(10px, 2vw, 20px); /* Responsive margin */
+        }
+
+        img {
+            max-width: clamp(200px, 50vw, 500px); /* Responsive width */
+            border-radius: 10px;
+            height: clamp(100px, 25vw, 200px); /* Responsive height */
+            margin-bottom: clamp(10px, 2vw, 20px); /* Responsive margin */
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Đảm bảo nút không vượt quá màn hình */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="./anh-dong-powerpoint-1.gif" alt="Ảnh động">
+    <h1>Hẹn hò với anh nhé ❤️</h1>
+    <div class="container">
+        <button id="dong-y">Đồng Ý</button>
+        <button id="tu-choi">Từ Chối</button>
+    </div>
+
+    <div id="heartFull"></div>
+    <div id="loveButton">❤️ Anh yêu em ❤️</div>
+
+  <script>
+    const noBtn = document.getElementById("tu-choi");
+    const yesBtn = document.getElementById("dong-y");
+    const heartFull = document.getElementById("heartFull");
+    const loveButton = document.getElementById("loveButton");
+
+    // Biến để lưu interval
+let moveInterval = null;
+
+noBtn.style.transition = "transform 0.2s ease-in-out"; // Mượt mà hơn
+
+noBtn.addEventListener("mouseover", () => {
+    if (!moveInterval) {
+        moveInterval = setInterval(() => {
+            const offsetX = Math.random() * 400 - 200; // Phạm vi rộng hơn (-200px đến 200px)
+            const offsetY = Math.random() * 400 - 200;
+            noBtn.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }, 250); // Nhanh hơn, di chuyển mỗi 250ms
+    }
+});
+
+noBtn.addEventListener("mouseout", () => {
+    if (moveInterval) {
+        clearInterval(moveInterval);
+        moveInterval = null;
+        setTimeout(() => {
+            noBtn.style.transform = "translate(0, 0)"; // Trả lại vị trí ban đầu sau 0.3s
+        }, 300);
+    }
+});
+
+    // Hiệu ứng khi nhấn "Đồng Ý"
+    yesBtn.addEventListener("click", () => {
+        heartFull.style.display = "block";
+        setTimeout(() => {
+            heartFull.style.display = "none";
+            loveButton.style.display = "block";
+        }, 1000);
+    });
+</script>
+</body>
+</html>
